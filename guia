@@ -1,0 +1,22 @@
+
+composer create-project laravel/laravel:^10.0 MultiTenant
+
+composer require filament/filament:"^3.2" -W
+
+php artisan filament:install --panels
+
+
+
+Borro AdminPaneel 
+
+php artisan make:filament-panel company
+
+
+php artisan make:model Company -ms 
+
+# Ajustar panel de empresas, autenticación, y primera versión funcional
+
+user
+CompanyPanelProvider
+auth.php 
+seeder ...

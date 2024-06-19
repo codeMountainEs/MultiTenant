@@ -49,11 +49,7 @@ class User extends Authenticatable implements HasTenants
         'password' => 'hashed',
     ];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
-
+    
     public function companies(): BelongsToMany
     {
         return $this->belongsToMany(Company::class);
@@ -66,6 +62,7 @@ class User extends Authenticatable implements HasTenants
 
     public function getTenants(Panel $panel): array|Collection
     {
+      
         return $this->companies;
     }
 

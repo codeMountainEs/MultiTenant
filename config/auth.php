@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'companies',
         ],
+        'rider' => [
+            'driver' => 'session',
+            'provider' => 'riders',
+        ],
     ],
 
     /*
@@ -63,6 +67,11 @@ return [
         'companies' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+
+        'riders' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Rider::class,
         ],
 
         // 'users' => [
@@ -93,6 +102,12 @@ return [
     'passwords' => [
         'companies' => [
             'provider' => 'companies',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'riders' => [
+            'provider' => 'riders',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

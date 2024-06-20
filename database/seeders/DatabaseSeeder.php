@@ -54,5 +54,9 @@ class DatabaseSeeder extends Seeder
         $multiCompany->companies()->attach(Company::where('slug', 'deliveroo')->first());
         $multiCompany->companies()->attach(Company::where('slug', 'just-eat')->first());
 
+        $this->call(
+            RiderSeeder::class,
+        );
+
     }
 }

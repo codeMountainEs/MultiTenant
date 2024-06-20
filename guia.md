@@ -74,6 +74,46 @@ RiderSeeder.php
 DatabseSeedr añadimos 
 
 
+# Actualizar resource de riders para que las empresas puedan gestionar todos sus datos
+
+*RiderResource form 
+    rider email unico 
+
+
+
+# Modelo y migración de Tasks para que los riders gestionen sus tareas
+
+php artisan make:model Task -m 
+
+modelo para que los riders puedan imputar su trabajo 
+
+migration tasks , nombre , color company rider 
+
+* Model -> task 
+    booted cuando el modelo este listo añadimos un globalscope 
+        todas las consultas van por el rider = usuario identificado ... 
+
+        a parte que por la compani que lo hace larave filament ...
+
+
+    owner() info de tareas pertenece a un owner .. sacar las tareas de la emprea...
+
+    rider()  datos del rider 
+
+* Model company 
+    tasks() hasMany 
+
+php artisan migrate:fresh --seed 
+
+
+
+
+
+
+
+
+
+
 EMPRESAS 
     RIDIRES
         TAREAS

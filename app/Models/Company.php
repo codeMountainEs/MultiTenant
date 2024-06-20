@@ -26,4 +26,8 @@ class Company extends Model
     {
         return $this->belongsToMany(Rider::class);
     }
+    public function tasks(): HasMany
+    {
+        return $this->hasMany(Task::class);
+    }
 }

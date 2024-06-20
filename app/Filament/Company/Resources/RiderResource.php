@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
 
 class RiderResource extends Resource
 {
@@ -21,15 +22,44 @@ class RiderResource extends Resource
 
     protected static ?string $tenantOwnershipRelationshipName = 'companies';
 
+
+    public static function getPluralLabel(): ?string
+    {
+        return __('Riders');
+    }
+
+    public static function getLabel(): string
+    {
+        return __('Rider');
+    }
+
+
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
-                ->required()
-                ->maxLength(255)
-                ->columnSpan(1),
-       
+                    ->required()
+                    ->maxLength(255)
+                    ->columnSpan(1),
+                Forms\Components\TextInput::make('email')
+                    ->email()
+                    ->required()
+                    ->unique(Rider::class, 'email', ignoreRecord: true)
+                    ->columnSpan(1),
+                Forms\Components\TextInput::make('password')
+                    ->password()
+                    ->dehydrateStateUsing(fn ($state) => Hash::make($state))
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->required(fn (string $context): bool => $context === 'create')
+                    ->confirmed()
+                    ->minLength(8)
+                    ->maxLength(200)
+                    ->label(__('Contraseña')),
+                Forms\Components\TextInput::make('password_confirmation')
+                    ->password()
+                    ->label(__('Confirmar contraseña')),
             ]);
     }
 
@@ -38,6 +68,8 @@ class RiderResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                ->searchable(),
+                Tables\Columns\TextColumn::make('email')
                 ->searchable(),
             ])
             ->filters([
